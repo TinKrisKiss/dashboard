@@ -5,6 +5,9 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   base: '/dashboard/',
+  build: {
+    outDir: 'docs', // папка для сборки — docs вместо dist
+  },
   plugins: [
     react(),
     tailwindcss(),
