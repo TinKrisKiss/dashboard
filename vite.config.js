@@ -4,8 +4,9 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
+  base: '/dashboard/',
   plugins: [
     react(),
-    tailwindcss(), // подключаем Tailwind как плагин Vite
+    tailwindcss(),
   ],
 })
