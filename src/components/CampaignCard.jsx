@@ -1,5 +1,5 @@
 // CampaignCard.jsx
-function CampaignCard({ name, budget, clicks, status, ctr }) {
+function CampaignCard({ name, budget, clicks, status, ctr, onDelete, onEdit }) {
 
   // Объект где ключ — это статус, значение — классы Tailwind для цвета
   // Аналогия: это словарь. Спрашиваешь "Активна" — получаешь зелёный цвет
@@ -9,13 +9,18 @@ function CampaignCard({ name, budget, clicks, status, ctr }) {
     'Завершена': 'bg-gray-100 text-gray-600',
   }
 
-  // Берём из словаря нужный цвет по текущему статусу
-  // Если статус не найден — используем серый цвет по умолчанию
+  // Отдельный словарь — цвет полоски слева, без фона текста
+  const borderColors = {
+    'Активна':   'border-l-green-500',
+    'На паузе':  'border-l-yellow-500',
+    'Завершена': 'border-l-gray-400',
+  }
+
   const colorClass = statusColors[status] || 'bg-gray-100 text-gray-600'
+  const borderColorClass = borderColors[status] || 'border-l-gray-400'
 
   return (
-    <div className="bg-white rounded-xl shadow p-5 flex flex-col gap-2">
-
+    <div className={`bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow p-5 flex flex-col gap-2 border border-gray-100 border-l-4 ${borderColorClass}`}>
       {/* Название кампании */}
       <h2 className="text-lg font-semibold text-gray-800">{name}</h2>
 
@@ -39,6 +44,22 @@ function CampaignCard({ name, budget, clicks, status, ctr }) {
       <p className="text-sm text-gray-600">
         Кликабельность: <span className="font-medium text-gray-900">{ctr}%</span>
       </p>
+
+      {/* Кнопки действий */}
+      <div className="flex gap-3 mt-2">
+        <button
+          onClick={onEdit}
+          className="text-sm text-blue-500 hover:text-blue-700 hover:underline"
+        >
+          Редактировать
+        </button>
+        <button
+          onClick={onDelete}
+          className="text-sm text-red-500 hover:text-red-700 hover:underline"
+        >
+          Удалить
+        </button>
+      </div>
 
     </div>
   )
